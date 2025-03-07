@@ -59,9 +59,10 @@ const obtenerEquipos = async (req, res) => {
 };
 
 const agregarEquipo = async (req, res) => {
-  const equipo = req.body;
+  const { equipo } = req.body;
   try {
     await futScriptModel.addTeam(equipo);
+
     return res.status(201).json({ message: "Equipo agregado con éxito" });
   } catch (error) {
     console.log(error);

@@ -16,8 +16,20 @@ const verifyUsername = async (username) => {
   return rows[0];
 };
 
-const getTeams = async () => {};
-const addTeam = async (teamID) => {};
+const getTeams = async () => {
+  const query = "SELECT * FROM equipos";
+  const formattedQuery = format(query);
+  const { rows } = await pool.query(formattedQuery);
+  return rows;
+};
+
+const addTeam = async (team) => {
+  const query = "INSERT INTO equipos (name) VALUES (%L) RETURNING *";
+  const formattedQuery = format(query, team);
+  const { rows } = await pool.query(formattedQuery);
+  return rows[0];
+};
+
 const getPlayers = async (equipo) => {};
 const addPlayer = async ({ jugador, teamID }) => {};
 

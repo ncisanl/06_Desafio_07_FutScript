@@ -8,15 +8,11 @@ router.post("/register", futScriptController.postRegisterController);
 
 router.post("/login", futScriptController.postLoginController);
 
-router.get("/equipos", authMiddleware, futScriptController.obtenerEquipos);
+router.get("/equipos", futScriptController.obtenerEquipos);
 
 router.post("/equipos", authMiddleware, futScriptController.agregarEquipo);
 
-router.post(
-  "/equipos/:teamID/jugadores",
-  authMiddleware,
-  futScriptController.obtenerJugadores,
-);
+router.get("/equipos/:teamID/jugadores", futScriptController.obtenerJugadores);
 
 router.post(
   "/equipos/:teamID/jugadores",
