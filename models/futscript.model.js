@@ -30,8 +30,21 @@ const addTeam = async (team) => {
   return rows[0];
 };
 
-const getPlayers = async (equipo) => {};
-const addPlayer = async ({ jugador, teamID }) => {};
+const getPlayers = async (teamID) => {
+  const query =
+    "SELECT j.name, p.name AS posicion FROM jugadores AS j INNER JOIN posiciones AS p ON j.position = p.id WHERE j.id_equipo = %L";
+  const formattedQuery = format(query, teamID);
+  const { rows } = await pool.query(formattedQuery);
+  return rows;
+};
+
+const addPlayer = async ({ jugador, posicion, teamID }) => {
+  const query =
+    "INSERT INTO jugadores (id_equipo, name, position) VALUES (%L, %L, %L) RETURNING *";
+  const formattedQuery = format(query, teamID, jugador, posicion);
+  const { rows } = await pool.query(formattedQuery);
+  return rows[0];
+};
 
 export const futScriptModel = {
   registerUser,

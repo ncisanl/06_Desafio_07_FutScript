@@ -71,9 +71,11 @@ const agregarEquipo = async (req, res) => {
 };
 
 const obtenerJugadores = async (req, res) => {
+  const { teamID } = req.params;
+
   try {
-    const { teamID } = req.params;
     const jugadores = await futScriptModel.getPlayers(teamID);
+
     return res.status(200).json(jugadores);
   } catch (error) {
     console.log(error);
@@ -83,9 +85,10 @@ const obtenerJugadores = async (req, res) => {
 
 const registrarJugador = async (req, res) => {
   const { teamID } = req.params;
-  const jugador = req.body;
+  const { jugador, posicion } = req.body;
   try {
-    await futScriptModel.addPlayer({ jugador, teamID });
+    await futScriptModel.addPlayer({ jugador, posicion, teamID });
+
     return res.status(201).json({ message: "Jugador agregado con éxito" });
   } catch (error) {
     console.log(error);
