@@ -3,7 +3,7 @@ import "dotenv/config";
 import express from "express";
 import futScriptRoute from "./routes/futscript.route.js";
 
-const app = express();
+export const app = express();
 
 app.use(express.json());
 app.use(cors());
